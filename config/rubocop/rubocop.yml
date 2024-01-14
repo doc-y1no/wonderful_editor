@@ -427,6 +427,6 @@ Style/HashEachMethods:
 Style/HashTransformKeys:
   Enabled: true
 
-# version 1 からは強制 true
+# version 1 からは強制 truep
 Style/HashTransformValues:
   Enabled: true
