@@ -38,12 +38,12 @@ module WonderfulEditor
     config.generators do |g|
       g.test_frameworkfalse
       g.test_framework :rspec
-        g.test_framework :rspec,
-                          view_specs: false,
-                          routing_specs: false,
-                          helper_specs: false,
-                          controller_specs: false,
-                          request_specs: true
+      g.test_framework :rspec,
+                       view_specs: false,
+                       routing_specs: false,
+                       helper_specs: false,
+                       controller_specs: false,
+                       request_specs: true
     end
     config.api_only = true
   end
