@@ -35,7 +35,7 @@ module WonderfulEditor
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    config.generatorsdo |g|
+    config.generators do |g|
       g.test_frameworkfalse
       g.test_framework :rspec
         g.test_framework :rspec,
