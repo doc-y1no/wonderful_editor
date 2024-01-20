@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 2024_01_15_131633) do
   enable_extension "plpgsql"
 
   create_table "article_likes", force: :cascade do |t|
-    t.text "body"
     t.bigint "user_id", null: false
     t.bigint "article_id", null: false
     t.datetime "created_at", precision: 6, null: false
