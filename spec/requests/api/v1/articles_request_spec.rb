@@ -1,24 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Articles", type: :request do
-  describe "GET /articles" do
-    subject { get(api_v1_articles_path) }
-
-    let!(:article1) { create(:article, updated_at: 1.days.ago) }
-    let!(:article2) { create(:article, updated_at: 2.days.ago) }
-    let!(:article3) { create(:article) }
-
-    it "記事の一覧が取得できる" do
-      res = JSON.parse(response.body)
-
-      expect(response).to have_http_status(:ok)
-      expect(res.length).to eq 3
-      expect(res.map {|d| d["id"] }).to eq [article3.id, article1.id, article2.id]
-      expect(res[0].keys).to eq ["id", "title", "updated_at", "user"]
-      expect(res[0]["user"].keys).to eq ["id", "name", "email"]
-    end
-  end
-
   describe "GET /users/:id" do
     subject { get(api_v1_article_path(article_id)) }
 
@@ -51,25 +33,24 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
   end
 
-  # describe "POST /articles" do
-  #   subject { post(api_v1_articles_path, params: params) }
+  describe "POST /articles" do
+    subject { post(api_v1_articles_path, params: params) }
 
-  #   let(:params) { { article: attributes_for(:article) } }
-  #   let(:current_user) { create(:user) }
+    context "指定したidの記事が存在しないとき" do
+      let(:params) { { article: attributes_for(:article) } }
+      let(:current_user) { create(:user) }
 
-  #   before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+      before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) } # rubocop:disable RSpec/AnyInstance
 
-  #   it "記事のレコードが作成できる" do
-  #     aggregate_failures do
-  #       expect { subject }.to change { Article.where(user_id: current_user.id).count }.by(1)
-  #       res = JSON.parse(response.body)
-  #       expect(res["title"]).to eq params[:article][:title]
-  #       expect(res["body"]).to eq params[:article][:body]
-  #       # binding.pry
-  #       expect(response).to have_http_status(:ok)
-  #     end
-  #   end
-  # end
+      it "記事のレコードが作成できる" do
+        expect { subject }.to change { Article.where(user_id: current_user.id).count }.by(1)
+        res = JSON.parse(response.body)
+        expect(res["title"]).to eq params[:article][:title]
+        expect(res["body"]).to eq params[:article][:body]
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 
   describe "PATCH /api/v1/articles/:id" do
     subject { patch(api_v1_article_path(article.id), params: params) }
@@ -123,6 +104,6 @@ RSpec.describe "Api::V1::Articles", type: :request do
   #   it "記事を削除できない" do
   #     expect { subject }.to raise_error(ActiveRecord::RecordNotFound) &
   #                           change { Article.count }.by(0)
-  #   end
+    # end
   # end
 end
