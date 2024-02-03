@@ -8,8 +8,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     let!(:article2) { create(:article, updated_at: 2.days.ago) }
     let!(:article3) { create(:article) }
 
-    it "記事の一覧が取得できる" do # rubocop:disable RSpec/MultipleExpectations
-      subject
+    it "記事の一覧が取得できる" do
       res = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
@@ -82,7 +81,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     context "自分が所持している記事のレコードを更新しようとするとき" do
       let(:article) { create(:article, user: current_user) }
 
-      it "記事を更新できる" do # rubocop:disable RSpec/MultipleExpectations
+      it "記事を更新できる" do
         expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title])
         change { article.body }.from(article.reload.body).to(params[:article][:body])
         expect(response).to have_http_status(:ok)
@@ -111,7 +110,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     context "自分の記事を削除しようとするとき" do
       let!(:article) { create(:article, user: current_user) }
 
-      it "記事を削除できる" do # rubocop:disable RSpec/MultipleExpectations
+      it "記事を削除できる" do
         expect { subject }.to change { Article.count }.by(-1)
         expect(response).to have_http_status(:no_content)
       end
