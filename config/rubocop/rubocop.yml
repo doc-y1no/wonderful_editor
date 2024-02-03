@@ -191,7 +191,7 @@ Style/AsciiComments:
 # auto-correct せず、自分で修正する
 # spec 内は見た目が綺麗になるので許可
 Style/BlockDelimiters:
-  AutoCorrect: false
+  AutoCorrect: true
   Exclude:
     - "spec/**/*_spec.rb"
 
