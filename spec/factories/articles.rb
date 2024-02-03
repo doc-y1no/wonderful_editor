@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :article do
     title { Faker::Lorem.word }
-    body { Faker::Lorem.sentence }
+    body { Faker::Lorem.sentences }
     user
   end
 end

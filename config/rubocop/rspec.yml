@@ -1,5 +1,8 @@
 require: "rubocop-rspec"
 
+RSpec/LetSetup:
+  Enabled: false
+
 # 日本語だと「〜の場合」になるので suffix でないと対応できない
 RSpec/ContextWording:
   Enabled: false
@@ -7,6 +10,9 @@ RSpec/ContextWording:
 # subject はコピペ可搬性よりもそのまま USAGE であって欲しい
 RSpec/DescribedClass:
   EnforcedStyle: explicit
+
+RSpec/ExampleLength:
+  Enabled: false
 
 # it が一つしか無いような context では空行を開ける方が読みづらい
 #   context "when foo is bar" do
@@ -19,14 +25,15 @@ RSpec/EmptyLineAfterFinalLet:
 # each で回したり aggregate_failures 使ってたりすると厳しい。
 # feature spec は exclude でも良いかもしれない。
 # ヒアドキュメント使うと一瞬で超えるので disable も検討。
-RSpec/ExampleLength:
-  Max: 8
 
 # block の方がテスト対象が
 # * `{}` の前後のスペースと相まって目立つ
 # * 普段書く形と同じなので自然に脳内に入ってくる
 RSpec/ExpectChange:
   EnforcedStyle: block
+
+RSpec/MultipleExpectations:
+  Max: 14
 
 # one-liner の should は書きやすいし意味が通りやすいし副作用も無いので撥ねる必要がない。
 # ただ expect 派に対して強制するほどでもないので統一はしない。
@@ -54,7 +61,7 @@ RSpec/NamedSubject:
 # テストを読む人にやさしくなる。
 # デフォルトの 3 より少し緩めてもヨサソウ。
 RSpec/NestedGroups:
-  Max: 4
+  Max: 8
 
 # ブロックは初見だと返り値を書いていると気づけないので and_return にしたいが、
 # ブロックの方が見た目がスッキリして見やすいので、どちらでもお好きにどうぞ。
