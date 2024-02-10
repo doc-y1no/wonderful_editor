@@ -6,14 +6,16 @@ RSpec.describe "Api/V1::Auth::Registrations", type: :request do
 
     context "必要な情報が存在するとき" do
       let(:params) { attributes_for(:user) }
+      binding.pry
       it "ユーザーの新規登録ができる" do
+        binding.pry
         expect { subject }.to change { User.count }.by(1)
         expect(response).to have_http_status(:ok)
         res = JSON.parse(response.body)
         expect(res["data"]["email"]).to eq(User.last.email)
       end
 
-      it "header 情報を取得することができる" do
+      fit "header 情報を取得することができる" do
         subject
         header = response.header
         expect(header["access-token"]).to be_present
