@@ -35,8 +35,8 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
     end
 
     context "passwordが一致しないとき" do
-      let(:user){ create(:user )}
-      let(:params){ attributes_for(:user, email:user.email, password: "test") }
+      let(:user) { create(:user) }
+      let(:params) { attributes_for(:user, email: user.email, password: "test") }
 
       it "loginできない" do
         subject
