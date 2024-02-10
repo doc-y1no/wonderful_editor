@@ -33,7 +33,7 @@ RSpec/ExpectChange:
   EnforcedStyle: block
 
 RSpec/MultipleExpectations:
-  Max: 14
+  Max: 8
 
 # one-liner の should は書きやすいし意味が通りやすいし副作用も無いので撥ねる必要がない。
 # ただ expect 派に対して強制するほどでもないので統一はしない。
