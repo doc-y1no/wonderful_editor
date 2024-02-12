@@ -1,14 +1,15 @@
 module Api::V1
   class ArticlesController < BaseApiController
     before_action :authenticate_user!, only: [:create, :update, :destroy]
+
     def index
-      articles = Article.order(updated_at: :desc)
+      articles = Article.published.order(updated_at: :desc)
       render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
     end
 
     def show
-      article = Article.find(params[:id])
-      render json: article
+      article = Article.published.find(params[:id])
+      render json: article, serializer: Api::V1::ArticleSerializer
     end
 
     def create
@@ -30,7 +31,7 @@ module Api::V1
     private
 
       def article_params
-        params.require(:article).permit(:title, :body)
+        params.require(:article).permit(:title, :body, :status)
       end
   end
 end
