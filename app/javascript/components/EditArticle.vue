@@ -12,7 +12,7 @@
         placeholder="Markdown で記述することができます"
         class="body-form"
       ></v-textarea>
-      <div v-html="compiledMarkdown(this.body)" class="preview">a</div>
+      <div v-html="compiledMarkdown(this.body)" class="preview"></div>
     </div>
     <div class="create_btn_area">
       <v-btn
@@ -37,6 +37,7 @@ import axios from "axios";
 import Router from "../router/router";
 import marked from "marked";
 import hljs from "highlight.js";
+import ArticleList from "./ArticleList.vue";
 
 const headers = {
   headers: {
@@ -87,9 +88,11 @@ export default {
   methods: {
     async postArticle(status) {
       const params = {
+        articles:{
         title: this.title,
         body: this.body,
         status: status
+        }
       };
 
       if (this.id) {
